@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { StatusCodes } = require('http-status-codes');
 
 const UserModel = require('../database/user.model');
+const ApiError = require('../error/apiError');
 
 const validateUserPassword = ({ userPassword, passwordPayload }) =>
   bcrypt.compareSync(passwordPayload, userPassword, process.env.SALT_AMOUNT);
@@ -14,7 +15,7 @@ const login = async ({ email, password }) => {
     },
   });
 
-  if (!user) throw new Error({ error: StatusCodes.NOT_FOUND });
+  if (!user) throw new ApiError({ error: StatusCodes.NOT_FOUND });
 
   const isValidated = validateUserPassword({
     passwordPayload: password,
@@ -32,6 +33,6 @@ const login = async ({ email, password }) => {
 
     return token;
   }
-  throw new Error(StatusCodes.BAD_REQUEST, 'Email/Password is incorrect');
+  throw new ApiError(StatusCodes.BAD_REQUEST, 'Email or Password is incorrect');
 };
 module.exports = { login };

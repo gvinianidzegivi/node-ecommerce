@@ -4,8 +4,8 @@ require('./database/connection');
 const express = require('express');
 const routes = require('./routes');
 
-const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 const errorConverterMiddleware = require('./middlewares/errorConverterMiddleware');
+const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 
 const PORT = process.env.PORT || 5001;
 

@@ -9,7 +9,7 @@ const validateRegister = async (req, res, next) => {
     email: Joi.string().email(),
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')),
     roleId: Joi.string(),
-    deletedAt: Joi.date().format('YYYY-MM-DD'),
+    deletedAt: Joi.date().allow(null),
   });
 
   return joiSchemaValidator(next, req.body, schema);
